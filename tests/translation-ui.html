@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lang Cols translation UI fixture</title>
+    <style>
+      .fixture-panel {
+        margin: 18px auto;
+        padding: 18px;
+        max-width: 1384px;
+        background: #eef4fb;
+        color: #20364b;
+        border: 2px dashed #a4b7cb;
+        border-radius: 10px;
+        font:
+          14px/1.5 system-ui,
+          sans-serif;
+      }
+      .fixture-panel h1 {
+        margin: 0 0 6px;
+        font:
+          600 20px/1.4 system-ui,
+          sans-serif;
+        letter-spacing: normal;
+      }
+      .fixture-panel p {
+        margin: 4px 0 12px;
+      }
+      .fixture-panel fieldset {
+        margin: 12px 0;
+        border: 1px solid #b5c8da;
+        padding: 10px;
+      }
+      .fixture-panel legend {
+        padding: 0 4px;
+        font-weight: 600;
+      }
+      .fixture-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 14px;
+      }
+      .fixture-panel label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .fixture-panel button,
+      .fixture-panel input,
+      .fixture-panel select {
+        padding: 7px 9px;
+        border: 1px solid #8ca4bb;
+        border-radius: 5px;
+        background: white;
+        color: #20364b;
+        font: inherit;
+      }
+      .fixture-panel button {
+        cursor: pointer;
+      }
+      .fixture-panel button:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+      .fixture-panel output {
+        display: block;
+        margin-top: 8px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .fixture-request {
+        border: 1px solid #b5c8da;
+        background: #f8fbff;
+        border-radius: 6px;
+        padding: 10px;
+        margin: 8px 0;
+      }
+      .fixture-request h3 {
+        margin: 0 0 5px;
+        font-size: 14px;
+      }
+      .fixture-request p {
+        margin: 2px 0 8px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="fixture-panel" aria-label="Translation test fixture controls">
+      <h1>Translation UI fixture</h1>
+      <p>
+        The real app runs below with mocked IPC. Translation and saved words
+        stay in this page's memory; this fixture never contacts Python, Rust, or
+        SQLite.
+      </p>
+      <div class="fixture-controls">
+        <label for="fixture-model-state"
+          >Models
+          <select id="fixture-model-state">
+            <option value="ready">Ready</option>
+            <option value="missing">Unavailable</option>
+          </select>
+        </label>
+        <label for="fixture-save-mode"
+          >Save mode
+          <select id="fixture-save-mode">
+            <option value="success">Save succeeds</option>
+            <option value="failure">Save fails</option>
+            <option value="held">Hold saves</option>
+          </select>
+        </label>
+        <button id="fixture-remount" type="button">Remount app</button>
+        <button id="fixture-reset" type="button">Reset fixture</button>
+      </div>
+      <output id="fixture-summary" aria-live="polite"></output>
+      <fieldset>
+        <legend>IME composition helpers</legend>
+        <div class="fixture-controls">
+          <label for="fixture-composition-language"
+            >Composition field language
+            <select id="fixture-composition-language">
+              <option value="russian">Russian</option>
+              <option value="english">English</option>
+              <option value="german">German</option>
+              <option value="spanish">Spanish</option>
+              <option value="french">French</option>
+            </select>
+          </label>
+          <label for="fixture-composition-text"
+            >Composing text
+            <input id="fixture-composition-text" value="новое слово"
+          /></label>
+          <button id="fixture-composition-start" type="button">
+            Begin composition
+          </button>
+          <button id="fixture-composition-update" type="button">
+            Update composing text
+          </button>
+          <button id="fixture-composition-end" type="button">
+            End composition
+          </button>
+        </div>
+        <output id="fixture-composition-status" aria-live="polite"
+          >No composition event sent.</output
+        >
+      </fieldset>
+      <section aria-label="Mock translation requests">
+        <h2>Translation requests</h2>
+        <div id="fixture-translation-requests"></div>
+      </section>
+      <section aria-label="Mock save requests">
+        <h2>Save requests</h2>
+        <div id="fixture-save-requests"></div>
+      </section>
+    </aside>
+    <div id="root"></div>
+    <script type="module" src="/tests/translation-ui.ts"></script>
+  </body>
+</html>
